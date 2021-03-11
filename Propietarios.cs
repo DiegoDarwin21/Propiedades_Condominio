@@ -11,9 +11,11 @@ namespace Propiedades_Condominio
         string dpi;
         string nombre;
         string apellido;
+        int contador; 
 
         public string Dpi { get => dpi; set => dpi = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }
+        public int Contador { get => contador; set => contador = value; }
     }
 }

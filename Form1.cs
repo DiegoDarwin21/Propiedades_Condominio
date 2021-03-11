@@ -15,6 +15,7 @@ namespace Propiedades_Condominio
     {
         List<Propiedades> listaPropiedades = new List<Propiedades>();
         List<Propietarios> listaPropietarios = new List<Propietarios>();
+        List<Cuotas> listaCuotas = new List<Cuotas>();
 
         public Form1()
         {
@@ -90,9 +91,61 @@ namespace Propiedades_Condominio
             //Cerrar el archivo
             writer2.Close();
         }
+
+        private void mostrar()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = listaCuotas;
+            dataGridView1.Refresh();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             leer();
+            // después de leer se llena la propiedad contador, que se la que sirve para
+            // llevar cuenta de todas las propiedades que poseen y a la vez llena los datos
+           // de la lista que se mostrará en el gridview
+            for(int x=0; x<listaPropietarios.Count; x++)
+            {
+                for(int y=0; y<listaPropiedades.Count; y++)
+                {
+                    if (listaPropiedades[y].Dpi == listaPropietarios[x].Dpi)
+                    {
+                        listaPropietarios[x].Contador++;
+                        Cuotas c = new Cuotas();
+                        c.Nombre = listaPropietarios[x].Nombre;
+                        c.Apellido = listaPropietarios[x].Apellido;
+                        c.No_CAsa = listaPropiedades[y].No_Casa;
+                        c.Cuto_Mantenimientos = listaPropiedades[y].Cuota_Mantenimiento;
+
+                        listaCuotas.Add(c);
+                    }
+                    
+                }
+            }
+
+
+            mostrar();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            listaCuotas = listaCuotas.OrderByDescending(c => c.Cuto_Mantenimientos).ToList();
+            mostrar();
+        }
+
+        private void CuotaAscendente_CheckedChanged(object sender, EventArgs e)
+        {
+            listaCuotas = listaCuotas.OrderBy(c => c.Cuto_Mantenimientos).ToList();
+            mostrar();
+
+          //  dueño = dueño.OrderBy(cuota => cuota.Cuota_mantenimiento).ToList();
+           // mostrar();
+        }
+
+        private void propiedades_CheckedChanged(object sender, EventArgs e)
+        {
+            
+
         }
     }
 }
