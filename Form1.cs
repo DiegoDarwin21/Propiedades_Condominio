@@ -16,6 +16,7 @@ namespace Propiedades_Condominio
         List<Propiedades> listaPropiedades = new List<Propiedades>();
         List<Propietarios> listaPropietarios = new List<Propietarios>();
         List<Cuotas> listaCuotas = new List<Cuotas>();
+        List<Cuota_total> listaCuotaTotal = new List<Cuota_total>();
  
         
 
@@ -108,10 +109,19 @@ namespace Propiedades_Condominio
            // de la lista que se mostrará en el gridview
             for(int x=0; x<listaPropietarios.Count; x++)
             {
-                for(int y=0; y<listaPropiedades.Count; y++)
+                int cont = 0;
+                int cuotaTotal = 0;
+                Cuota_total ct = new Cuota_total();
+                ct.Nombre = listaPropietarios[x].Nombre;
+                ct.Apellido = listaPropietarios[x].Apellido;
+
+                for (int y=0; y<listaPropiedades.Count; y++)
                 {
                     if (listaPropiedades[y].Dpi == listaPropietarios[x].Dpi)
                     {
+                        cont+= 1;
+                        cuotaTotal += listaPropiedades[x].Cuota_Mantenimiento;
+
                         listaPropietarios[x].Contador++;
                         Cuotas c = new Cuotas();
                         c.Nombre = listaPropietarios[x].Nombre;
@@ -120,11 +130,16 @@ namespace Propiedades_Condominio
                         c.Cuota_Mantenimientos = listaPropiedades[y].Cuota_Mantenimiento;
 
                         listaCuotas.Add(c);
+                       
+
                     }
+
                     
                 }
+                ct.Cantidad_Propiedades = cont;
+                ct.Cuota_Total = cuotaTotal;
+                listaCuotaTotal.Add(ct);
             }
-
 
             mostrar();
         }
@@ -146,7 +161,17 @@ namespace Propiedades_Condominio
 
         private void propiedades_CheckedChanged(object sender, EventArgs e)
         {
-            
+            List<Cuota_total> temp = new List<Cuota_total>();
+            listaCuotaTotal = listaCuotaTotal.OrderByDescending(c => c.Cantidad_Propiedades).ToList();
+            Cuota_total mayor = new Cuota_total();
+            mayor.Nombre = listaCuotaTotal[0].Nombre;
+            mayor.Apellido = listaCuotaTotal[0].Apellido;
+            mayor.Cantidad_Propiedades = listaCuotaTotal[0].Cantidad_Propiedades;
+            mayor.Cuota_Total = listaCuotaTotal[0].Cuota_Total;
+            temp.Add(mayor);
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = temp;
+            dataGridView1.Refresh();
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -168,6 +193,21 @@ namespace Propiedades_Condominio
 
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = tresmasaltasybajas;
+            dataGridView1.Refresh();
+        }
+
+        private void Cuota_TotalAlta_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Cuota_total> temp = new List<Cuota_total>();
+            listaCuotaTotal = listaCuotaTotal.OrderByDescending(c => c.Cuota_Total).ToList();
+            Cuota_total mayor = new Cuota_total();
+            mayor.Nombre = listaCuotaTotal[0].Nombre;
+            mayor.Apellido = listaCuotaTotal[0].Apellido;
+            mayor.Cantidad_Propiedades = listaCuotaTotal[0].Cantidad_Propiedades;
+            mayor.Cuota_Total = listaCuotaTotal[0].Cuota_Total;
+            temp.Add(mayor);
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = temp;
             dataGridView1.Refresh();
         }
     }
