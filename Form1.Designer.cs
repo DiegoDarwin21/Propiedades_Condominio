@@ -34,6 +34,7 @@ namespace Propiedades_Condominio
             this.CuotaAscendente = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.propiedades = new System.Windows.Forms.RadioButton();
+            this.Cuotaaltaybaja = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +73,7 @@ namespace Propiedades_Condominio
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Cuotaaltaybaja);
             this.groupBox1.Controls.Add(this.CuotaAscendente);
             this.groupBox1.Controls.Add(this.propiedades);
             this.groupBox1.Controls.Add(this.CuotaDescendente);
@@ -92,6 +94,18 @@ namespace Propiedades_Condominio
             this.propiedades.Text = "Ordenar por el propietario que más propiedades tiene";
             this.propiedades.UseVisualStyleBackColor = true;
             this.propiedades.CheckedChanged += new System.EventHandler(this.propiedades_CheckedChanged);
+            // 
+            // Cuotaaltaybaja
+            // 
+            this.Cuotaaltaybaja.AutoSize = true;
+            this.Cuotaaltaybaja.Location = new System.Drawing.Point(21, 106);
+            this.Cuotaaltaybaja.Name = "Cuotaaltaybaja";
+            this.Cuotaaltaybaja.Size = new System.Drawing.Size(241, 17);
+            this.Cuotaaltaybaja.TabIndex = 4;
+            this.Cuotaaltaybaja.TabStop = true;
+            this.Cuotaaltaybaja.Text = "Ordenar por las 3 cuotas más alta y más bajas";
+            this.Cuotaaltaybaja.UseVisualStyleBackColor = true;
+            this.Cuotaaltaybaja.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Form1
             // 
@@ -117,6 +131,7 @@ namespace Propiedades_Condominio
         private System.Windows.Forms.RadioButton CuotaAscendente;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton propiedades;
+        private System.Windows.Forms.RadioButton Cuotaaltaybaja;
     }
 }
 

@@ -16,6 +16,8 @@ namespace Propiedades_Condominio
         List<Propiedades> listaPropiedades = new List<Propiedades>();
         List<Propietarios> listaPropietarios = new List<Propietarios>();
         List<Cuotas> listaCuotas = new List<Cuotas>();
+ 
+        
 
         public Form1()
         {
@@ -115,7 +117,7 @@ namespace Propiedades_Condominio
                         c.Nombre = listaPropietarios[x].Nombre;
                         c.Apellido = listaPropietarios[x].Apellido;
                         c.No_CAsa = listaPropiedades[y].No_Casa;
-                        c.Cuto_Mantenimientos = listaPropiedades[y].Cuota_Mantenimiento;
+                        c.Cuota_Mantenimientos = listaPropiedades[y].Cuota_Mantenimiento;
 
                         listaCuotas.Add(c);
                     }
@@ -129,13 +131,13 @@ namespace Propiedades_Condominio
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            listaCuotas = listaCuotas.OrderByDescending(c => c.Cuto_Mantenimientos).ToList();
+            listaCuotas = listaCuotas.OrderByDescending(c => c.Cuota_Mantenimientos).ToList();
             mostrar();
         }
 
         private void CuotaAscendente_CheckedChanged(object sender, EventArgs e)
         {
-            listaCuotas = listaCuotas.OrderBy(c => c.Cuto_Mantenimientos).ToList();
+            listaCuotas = listaCuotas.OrderBy(c => c.Cuota_Mantenimientos).ToList();
             mostrar();
 
           //  dueño = dueño.OrderBy(cuota => cuota.Cuota_mantenimiento).ToList();
@@ -145,7 +147,28 @@ namespace Propiedades_Condominio
         private void propiedades_CheckedChanged(object sender, EventArgs e)
         {
             
+        }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            List<Cuotas> tresmasaltasybajas = new List<Cuotas>();
+
+            listaCuotas = listaCuotas.OrderByDescending(c => c.Cuota_Mantenimientos).ToList();
+            for (int x = 0; x < 3; x++)
+            {
+                tresmasaltasybajas.Add(listaCuotas[x]);
+            }
+
+            listaCuotas = listaCuotas.OrderBy(c => c.Cuota_Mantenimientos).ToList();
+
+            for (int x = 0; x < 3; x++)
+            {
+                tresmasaltasybajas.Add(listaCuotas[x]);
+            }
+
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = tresmasaltasybajas;
+            dataGridView1.Refresh();
         }
     }
 }
